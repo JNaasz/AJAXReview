@@ -68,6 +68,15 @@ class randomUser {
         });
     }
 
+
+    fetchPostExample() {
+        fetch(url, {
+            method: 'POST', //get requests do not have a body
+            body: 'this is the body of the request'
+            //,Headers: ByteStringValues
+        })
+    }
+
     render() {
         console.log(this.data);
         this.img.src = this.data.picture.medium;
@@ -80,11 +89,52 @@ class randomUser {
 
 }
 
+//4 jQuery methods: $.ajax, $.get, $.post, $.getJSON
+class randomCat {
+    constructor() {
+        this.img = document.querySelector('#cat');
+        document.querySelector('#cat-btn').addEventListener('click', () => this.getCatData());
+    }
 
-// function fetchPostExample() {
-//     fetch(url, {
-//         method: 'POST', //get requests do not have a body
-//         body: 'this is the body of the request'
-//         //,Headers: ByteStringValues
-//     })
-// }
+    getCatData() {
+        $.ajax({
+            method: "Get",
+            url: "https://aws.random.cat/meow",
+            //dataType: 'json' - to ensure json
+        }).done((response) => {
+            this.img.src = response.file;
+        }).fail((message) => {
+             //do something
+             console.log('failed:', message);
+        });
+    }
+
+
+    //shortcuts below
+    getData() {
+       $.get('https://baconipsum.com/api/?type=meat-and-filler')
+       .done((response) => {
+            console.log('response:', response); //usually does not need to be parsed - 'intelligent guess'
+       }).fail(() => {
+            //do something
+       });
+    }
+
+    postData() {
+        $.post('https://baconipsum.com/api/?type=meat-and-filler', { name: 'Jen', city: 'Detroit'})
+        .done((response) => {
+             console.log('response:', response); //usually does not need to be parsed - 'intelligent guess'
+        }).fail(() => {
+             //do something
+        })
+    }
+
+    getJSON() {
+        $.getJSON('https://baconipsum.com/api/?type=meat-and-filler')
+        .done((response) => {
+             console.log('response:', response); //usually does not need to be parsed - 'intelligent guess'
+        }).fail(() => {
+             //do something
+        })
+    }
+}
