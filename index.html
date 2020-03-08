@@ -2,40 +2,41 @@
 <html>
     <head>
         <title>HTML Reference</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
+        <section class="xmlHttp">
+            <h1 class="title">Bitcoin Current Price is: 
+                <span id="price"></span>
+            </h1>
+            <div class="footer">
+                    <button class="price">Refresh Data</button>
+            </div>
+        </section>
 
-        <h1>Bitcoin Current Price is: 
-            <span id="price"></span>
-        </h1>
-        
-        <button>Refresh Data</button>
-
-
+        <section class="fetch">
+                <h1 class="title"> Random User Generator</h1>
+                <div class="user-profile">
+                    <img id="avatar" src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg" />
+                    <div id="fullname">Jon Snow</div>
+                  <div id="username">
+                      kingofnorth
+                  </div>
+                    <div class="description">
+                      <div>Email: <span id="email">jon@hotmail.com</span></div>
+                      <div>City: <span id="city">Winterfell</span></div>
+                  </div>
+                  <div class="footer">
+                    <button id="user-btn">Next User!</button>
+                 </div>
+                </div>
+        </section>
+        <script src="script.js" ></script>
         <script>
 
-            var getUpdate = new Promise(function(resolve, reject) {
-                var XHR = new XMLHttpRequest();
+        classFactory(priceData)().events();
+        classFactory(randomUser)().events();
 
-                XHR.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // Typical action to be performed when the document is ready:
-                        console.log('found it!', JSON.parse(XHR.responseText));
-                        resolve(JSON.parse(XHR.responseText));
-                    } //else reject('response not found');
-                };
-
-                XHR.open('GET', 'http://api.coindesk.com/v1/bpi/currentprice.json');
-                XHR.send();
-
-            });
-
-            var priceSpan = document.querySelector('span');
-            document.querySelector('button').addEventListener('click', function() {
-                getUpdate.then(function(data) {
-                    priceSpan.innerHTML = data.bpi.USD.rate + ' ' + data.bpi.USD.code;
-                });
-            });
 
         </script>
     </body>

@@ -1,19 +1,33 @@
 /* CSS design originally by @jofpin, tweaked by Colt Steele */
 @import url(https://fonts.googleapis.com/css?family=Raleway|Varela+Round|Coda);
 
-body {
-  background: #ecf0f1;
-  padding: 2.23em;
+.xmlHttp {
+    text-align: center;
+    width: 500px;
+    margin: auto;
+    background: #fff;
+    padding-top: 10px;
+    border-radius: 5px;
 }
 
-.title {
+
+#price {
+    color: #16a085;
+}
+
+body {
+  background: #ecf0f1;
+  padding: 30px;
+}
+
+.title, h1 {
   color: #2c3e50;
   font-family: "Coda", sans-serif;
   text-align: center;
 }
 .user-profile {
   margin: auto;
-	width: 27em; 
+    width: 500px; 
   height: 11em;
   background: #fff;
   border-radius: .3em;

@@ -1,11 +1,17 @@
 function classFactory(classObj) {
     const ClassObj = classObj;
     return function (...args) { return new ClassObj(...args); }
-  }
+}
+
+function handleErrors(request) {
+    if (!request.ok) throw Error('Error with Fetch'); //will trigger catch
+    return request;
+}
 
 class priceData {
     constructor() {
         this.priceSpan = document.querySelector('span#price');
+        this.getPriceData();
     }
 
     events() {
@@ -36,32 +42,44 @@ class priceData {
     }   
 }
 
-class user {
+class randomUser {
+    constructor() {
+          this.img = document.querySelector('#avatar');
+          this.name = document.querySelector('#fullname');
+          this.username = document.querySelector('#username');
+          this.description = document.querySelector('.description');
+    }
+
+    events() {
+        document.querySelector('#user-btn').addEventListener('click', () => this.updateUserData());
+    }
+
+    updateUserData() {
+        fetch('https://randomuser.me/api').then(handleErrors)
+        .then((response) => {
+            return response.json();
+        }).then((data) => {
+            this.data = data.results[0];
+            this.render();
+        }).catch(function(error) {
+            console.log(error); //will post error msg from handleErrors if !request.ok
+            //only runs if there is a problem with the request itself - internet connection etc.
+            //will not run for a 404 code
+        });
+    }
+
+    render() {
+        console.log(this.data);
+        this.img.src = this.data.picture.medium;
+        this.name.innerHTML = this.data.name.first + ' ' + this.data.name.last;
+        this.username.innerHTML = this.data.login.username;
+        this.description.querySelector('#email').innerHTML = this.data.email;
+        this.description.querySelector('#city').innerHTML = this.data.location.city;
+
+    }
 
 }
 
-class documentEvents {
-
-}
-
-
-// var getFetchUpdate = new Promise(function(resolve, reject) {
-//     fetch('https://randomuser.me/api').then(handleErrors)
-//     .then(function(response) {
-//         console.log(response);
-//         resolve(response.json());
-//     }).catch(function(error) {
-//         console.log(error); //will post error msg from handleErrors if !request.ok
-//         //only runs if there is a problem with the request itself - internet connection etc.
-//         //will not run for a 404 code
-//     });
-// });
-
-// function handleErrors(request) {
-//     console.log(response.status, request.ok);
-//         if (!request.ok) throw Error('Error with Fetch'); //will trigger catch
-//         return request;
-// }
 
 // function fetchPostExample() {
 //     fetch(url, {
