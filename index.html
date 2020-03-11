@@ -40,14 +40,24 @@
             </div>
         </section>
 
+        <section class="axios">
+                <h1 class="title">Ron Swanson Quote Generator</h1>
+                <span id="quote"></span>
+                <div class="footer">
+                    <button id="quote-btn">New Quote</button>
+                </div>
+            </section>
+
 
         <script  src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="script.js" ></script>
         <script>
 
         classFactory(priceData)().events();
         classFactory(randomUser)().events();
         classFactory(randomCat)().getCatData();
+        classFactory(ronSwanson)().getRSQuote();
         </script>
     </body>
 </html>

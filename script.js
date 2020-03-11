@@ -25,10 +25,10 @@ class priceData {
         XHR.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
-                console.log('found it!', JSON.parse(XHR.responseText));
+                // console.log('found it!', JSON.parse(XHR.responseText));
                 //instantiate a new price data
                 self.data = JSON.parse(XHR.responseText);
-                console.log('data', self.priceSpan);
+                // console.log('data', self.priceSpan);
                 self.render();
             } //else reject('response not found');
         };
@@ -136,5 +136,38 @@ class randomCat {
         }).fail(() => {
              //do something
         })
+    }
+}
+
+class ronSwanson {
+    constructor() {
+        this.span = document.querySelector('#quote');
+
+        console.log('check the span', this.span, document.querySelector('#quote'));
+
+        document.querySelector('#quote-btn').addEventListener('click', () => this.getRSQuote());
+    }
+
+    getRSQuote() {
+        const self = this;
+        const url = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
+        axios.get(url, {
+            params: {
+                postId: 1 //for example only
+            }
+        })
+        .then((result) => {
+            console.log('data', result);
+            self.span.innerHTML = result.data[0];
+        })
+        .catch(self.handleErrors);
+    }
+
+    handleErrors(err) {
+        if (err.response)
+            console.log('Problem with the response itself', err.response.status);
+        else if (err.request)
+            console.log('Problem with the request');
+        else console.log('Error', err.message);
     }
 }
